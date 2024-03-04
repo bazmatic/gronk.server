@@ -48,9 +48,11 @@ export class SessionController {
         // Set headers
         for (const key in sessionResponse.headers) {
             if (sessionResponse.headers.hasOwnProperty(key)) {
+                this.logger.debug(`Setting header: ${key.toUpperCase()} to ${sessionResponse.headers[key]}`);
                 response.setHeader(key.toUpperCase(), sessionResponse.headers[key]);
             }
         }
+        this.logger.debug(`Content Type: ${JSON.stringify(response.getHeader('content-type'))}`)
         response.status(sessionResponse.statusCode).send(sessionResponse.body);
     }
 }
