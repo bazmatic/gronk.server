@@ -46,7 +46,9 @@ export class SessionController {
         const sessionResponse = await this.sessionService.deliverRequest(session.id, gronkRequest);
         //response.contentType(sessionResponse.headers)
         // Set headers
+        this.logger.debug(`Received response`)
         for (const key in sessionResponse.headers) {
+            this.logger.debug(`Trying to set header: ${key.toUpperCase()} to ${sessionResponse.headers[key]}`);
             if (sessionResponse.headers.hasOwnProperty(key)) {
                 this.logger.debug(`Setting header: ${key.toUpperCase()} to ${sessionResponse.headers[key]}`);
                 response.setHeader(key.toUpperCase(), sessionResponse.headers[key]);
