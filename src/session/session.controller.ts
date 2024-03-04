@@ -55,6 +55,7 @@ export class SessionController {
             }
         }
         this.logger.debug(`Content Type: ${JSON.stringify(response.getHeader('content-type'))}`)
+        this.logger.debug(`Response: ${sessionResponse.body}`)
         response.status(sessionResponse.statusCode).send(sessionResponse.body);
     }
 }
