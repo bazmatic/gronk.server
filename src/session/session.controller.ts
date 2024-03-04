@@ -48,7 +48,7 @@ export class SessionController {
         // Set headers
         for (const key in sessionResponse.headers) {
             if (sessionResponse.headers.hasOwnProperty(key)) {
-                response.setHeader(key, sessionResponse.headers[key]);
+                response.setHeader(key.toUpperCase(), sessionResponse.headers[key]);
             }
         }
         response.status(sessionResponse.statusCode).send(sessionResponse.body);
