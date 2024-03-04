@@ -5,30 +5,31 @@ export class GronkSession {
     ) {}
 }
 
+
 export class GronkHttpRequest {
     constructor(
         public method: string,
         public path: string,
-        public headers: string[],
+        public headers: Record<string, string>,
         public body: string
     ) {}
-}
-
-export class GronkHttpResponse {
+  }
+  
+  export class GronkHttpResponse {
     constructor(
         public statusCode: number,
-        public headers: string[],
+        public headers: Record<string, string>,
         public body: string
     ) {}
-}
-
-export class GronkSignal<T> {
+  }
+  
+  export class GronkSignal<T> {
     constructor(
         public signalId: string,
         public sessionId: string,
         public data: T
     ) {}
-}
+  }
 
 
 

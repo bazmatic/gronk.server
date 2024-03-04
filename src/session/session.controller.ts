@@ -34,16 +34,23 @@ export class SessionController {
         // If session, send the entire request via the session gateway
         // Make a GronkHttpRequest object
         // The headers
-        const headers: string[] = [];
+        const headers: Record<string, string> = {};
         for (const key in req.headers) {
             if (req.headers.hasOwnProperty(key)) {
-                headers.push(`${key}: ${req.headers[key]}`);
+                headers[key] = (req.headers[key]).toString();
             }
         }
         const gronkRequest: GronkHttpRequest = new GronkHttpRequest(req.method, path, headers, body);
         
          // Send it through the tunnel and wait for the response
         const sessionResponse = await this.sessionService.deliverRequest(session.id, gronkRequest);
+        //response.contentType(sessionResponse.headers)
+        // Set headers
+        for (const key in sessionResponse.headers) {
+            if (sessionResponse.headers.hasOwnProperty(key)) {
+                response.setHeader(key, sessionResponse.headers[key]);
+            }
+        }
         response.status(sessionResponse.statusCode).send(sessionResponse.body);
     }
 }
